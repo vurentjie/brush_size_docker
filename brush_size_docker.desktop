@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Krita/PythonPlugin
+X-KDE-Library=brush_size_docker
+X-Python-2-Compatible=false
+X-Krita-Manual=Manual.html
+Name=Brush size docker
+Comment=A compact docker to choose your brush size
+

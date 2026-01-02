@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionCollection version="2" name="Scripts">
+    <Actions category="Scripts">
+        <text>Brush size docker</text>
+        <Action name="decreaseBrushSizeDocker">
+            <text>Decrease brush size docker</text>
+        </Action>
+        <Action name="increaseBrushSizeDocker">
+            <text>Increase brush size docker</text>
+        </Action>
+    </Actions>
+</ActionCollection>
