@@ -129,17 +129,11 @@ class BrushSizeDocker(DockWidget):
         self._timer = QTimer()
         self._timer.timeout.connect(lambda: self.updateBrush())
         self._timer.start(100)
+        self._theme = Krita.instance().readSetting("theme", "Theme", "")
 
-        self._themeSlotConnected = False
 
     def canvasChanged(self, canvas):
-        if not self._themeSlotConnected:
-            view = canvas.view()
-            if view:
-                win = view.window()
-                if win:
-                    self._themeSlotConnected = True
-                    win.themeChanged.connect(self.fillSizesModel)
+        pass
 
     def fillSizesModel(self):
         self._brushSizeModel.clear()
@@ -204,8 +198,14 @@ class BrushSizeDocker(DockWidget):
     def updateBrush(self):
         if sip.isdeleted(self._listView):
             return
+        
+        app = Krita.instance()
+        theme = app.readSetting("theme", "Theme", "")
+        if self._theme != theme:
+            self._theme = theme
+            self.fillSizesModel()
 
-        win = Krita.instance().activeWindow()
+        win = app.activeWindow()
         if not win:
             return
 
