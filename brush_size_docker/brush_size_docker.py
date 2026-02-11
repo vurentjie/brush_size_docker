@@ -159,16 +159,16 @@ class BrushSizeDocker(DockWidget):
             circlePainter = QPainter()
             circlePainter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
-            img = QImage(20, 20, QImage.Format_RGBA8888)
-            img.fill(Qt.transparent)
+            img = QImage(20, 20, QImage.Format.Format_RGBA8888)
+            img.fill(Qt.GlobalColor.transparent)
 
             circlePainter.begin(img)
 
-            brush = QBrush(Qt.SolidPattern)
+            brush = QBrush(Qt.BrushStyle.SolidPattern)
             brush.setColor(color)
 
             pen = QPen(color)
-            pen.setStyle(Qt.SolidLine)
+            pen.setStyle(Qt.PenStyle.SolidLine)
             pen.setWidth(2)
 
             circlePainter.setBrush(brush)
