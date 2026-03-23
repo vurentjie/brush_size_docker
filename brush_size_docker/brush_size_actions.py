@@ -4,14 +4,14 @@
 
 from krita import Extension
 
-
 class BrushSizeActions(Extension):
     def setup(self):
         pass
 
     def createActions(self, window):
         for dock in window.dockers():
-            if dock.objectName() == "brush_size_docker":
+            if dock.objectName() == "brush_size_docker" and not dock.property("brush_size_actions"):
+                dock.setProperty("brush_size_actions", "1")
                 action = window.createAction(
                     "decreaseBrushSizeDocker", "Decrease brush size docker", ""
                 )
