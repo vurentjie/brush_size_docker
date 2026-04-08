@@ -100,6 +100,7 @@ class BrushSizeDocker(DockWidget):
             100,
             200,
         ]
+        self._sizesIcons = []
 
         self._listView = ShrinkableListView()
         self._listView.setViewMode(QListView.ViewMode.IconMode)
@@ -131,11 +132,10 @@ class BrushSizeDocker(DockWidget):
         self._timer.start(100)
         self._theme = Krita.instance().readSetting("theme", "Theme", "")
 
-
     def canvasChanged(self, canvas):
         pass
 
-    def fillSizesModel(self):
+    def fillSizesModel(self, window = None):
         self._brushSizeModel.clear()
         font = QFont("Arial", 8)
 
@@ -180,7 +180,10 @@ class BrushSizeDocker(DockWidget):
             circlePainter.end()
 
             brushImage = QPixmap.fromImage(img)
-
+            
+            if s >= len(self._sizesIcons):
+                self._sizesIcons.append(QIcon(brushImage))
+            
             item.setIcon(QIcon(brushImage))
             item.setForeground(brush)
             self._brushSizeModel.appendRow(item)
@@ -198,7 +201,7 @@ class BrushSizeDocker(DockWidget):
     def updateBrush(self):
         if sip.isdeleted(self._listView):
             return
-        
+
         app = Krita.instance()
         theme = app.readSetting("theme", "Theme", "")
         if self._theme != theme:
