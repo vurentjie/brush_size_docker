@@ -15,6 +15,7 @@ try:
         QPointF,
         Qt,
         QTimer,
+        QSize,
     )
     from PyQt6.QtGui import (
         QBrush,
@@ -44,6 +45,7 @@ except:
         QPointF,
         Qt,
         QTimer,
+        QSize,
     )
     from PyQt5.QtGui import (
         QBrush,
@@ -90,12 +92,14 @@ class BrushSizeDocker(DockWidget):
             12,
             14,
             16,
+            18,
             20,
             24,
             30,
             40,
             50,
             60,
+            70,
             80,
             100,
             200,
@@ -111,6 +115,8 @@ class BrushSizeDocker(DockWidget):
             QListView.SelectionMode.SingleSelection
         )
         self._listView.setMinimumHeight(80)
+        self._listView.setSpacing(0)
+        self._listView.setGridSize(QSize(25, 40))
         self._listView.setSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Ignored
         )
