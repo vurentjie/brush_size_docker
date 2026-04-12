@@ -114,9 +114,9 @@ class BrushSizeDocker(DockWidget):
         self._listView.setSelectionMode(
             QListView.SelectionMode.SingleSelection
         )
-        self._listView.setMinimumHeight(80)
+        self._listView.setMinimumHeight(84)
         self._listView.setSpacing(0)
-        self._listView.setGridSize(QSize(25, 40))
+        self._listView.setGridSize(QSize(23, 40))
         self._listView.setSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Ignored
         )
@@ -141,9 +141,10 @@ class BrushSizeDocker(DockWidget):
     def canvasChanged(self, canvas):
         pass
 
-    def fillSizesModel(self, window = None):
+    def fillSizesModel(self, window=None):
         self._brushSizeModel.clear()
         font = QFont("Arial", 8)
+        font.setPointSizeF(7.5)
 
         color = QApplication.palette().color(QPalette.ColorRole.Text).darker(
             140
@@ -152,6 +153,7 @@ class BrushSizeDocker(DockWidget):
         if color.red() < 34:
             color = QColor(34, 34, 34)
 
+        dim = 20
         for s in range(len(self._sizesList)):
             sz = self._sizesList[s]
 
@@ -165,7 +167,7 @@ class BrushSizeDocker(DockWidget):
             circlePainter = QPainter()
             circlePainter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
-            img = QImage(20, 20, QImage.Format.Format_RGBA8888)
+            img = QImage(dim, dim, QImage.Format.Format_RGBA8888)
             img.fill(Qt.GlobalColor.transparent)
 
             circlePainter.begin(img)
@@ -182,14 +184,16 @@ class BrushSizeDocker(DockWidget):
 
             brushSize = (s * 0.5) + 1
 
-            circlePainter.drawEllipse(QPointF(10, 10), brushSize, brushSize)
+            circlePainter.drawEllipse(
+                QPointF(dim // 2, dim // 2), brushSize, brushSize
+            )
             circlePainter.end()
 
             brushImage = QPixmap.fromImage(img)
-            
+
             if s >= len(self._sizesIcons):
                 self._sizesIcons.append(QIcon(brushImage))
-            
+
             item.setIcon(QIcon(brushImage))
             item.setForeground(brush)
             self._brushSizeModel.appendRow(item)
